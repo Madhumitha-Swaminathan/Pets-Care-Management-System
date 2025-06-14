@@ -1,8 +1,7 @@
-</style>
 <!-- Main Sidebar Container -->
-      <aside class="main-sidebar sidebar-dark-primary elevation-4 sidebar-no-expand">
+      <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
-        <a href="<?php echo base_url ?>admin" class="brand-link bg-primary text-sm">
+        <a href="<?php echo base_url ?>admin" class="brand-link text-sm">
         <img src="<?php echo validate_image($_settings->info('logo'))?>" alt="Store Logo" class="brand-image img-circle elevation-3" style="opacity: .8;width: 2.5rem;height: 2.5rem;max-height: unset">
         <span class="brand-text font-weight-light"><?php echo $_settings->info('short_name') ?></span>
         </a>
@@ -19,10 +18,17 @@
             <div class="os-viewport os-viewport-native-scrollbars-invisible" style="overflow-y: scroll;">
               <div class="os-content" style="padding: 0px 8px; height: 100%; width: 100%;">
                 <!-- Sidebar user panel (optional) -->
-                <div class="clearfix"></div>
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                  <div class="image">
+                    <img src="<?php echo validate_image($_settings->userdata('avatar')) ?>" class="img-circle elevation-2" alt="User Image" style="height: 2rem;object-fit: cover">
+                  </div>
+                  <div class="info">
+                    <a href="<?php echo base_url ?>admin/?page=user" class="d-block"><?php echo ucwords($_settings->userdata('firstname').' '.$_settings->userdata('lastname')) ?></a>
+                  </div>
+                </div>
                 <!-- Sidebar Menu -->
-                <nav class="mt-4">
-                   <ul class="nav nav-pills nav-sidebar flex-column text-sm nav-compact nav-flat nav-child-indent nav-collapse-hide-child" data-widget="treeview" role="menu" data-accordion="false">
+                <nav class="mt-2">
+                   <ul class="nav nav-pills nav-sidebar flex-column nav-flat" data-widget="treeview" role="menu" data-accordion="false">
                     <li class="nav-item dropdown">
                       <a href="./" class="nav-link nav-home">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -31,52 +37,45 @@
                         </p>
                       </a>
                     </li> 
+                    <li class="nav-header">Master List</li>
                     <li class="nav-item dropdown">
-                      <a href="<?php echo base_url ?>admin/?page=product" class="nav-link nav-product">
-                        <i class="nav-icon fas fa-box"></i>
+                      <a href="<?php echo base_url ?>admin/?page=people" class="nav-link nav-people">
+                        <i class="nav-icon fas fa-users"></i>
                         <p>
-                          Product List
+                          Individuals List
                         </p>
                       </a>
                     </li>
                     <li class="nav-item dropdown">
-                      <a href="<?php echo base_url ?>admin/?page=inventory" class="nav-link nav-inventory">
-                        <i class="nav-icon fas fa-clipboard-list"></i>
+                      <a href="<?php echo base_url ?>admin/?page=establishment" class="nav-link nav-establishment">
+                        <i class="nav-icon fas fa-building"></i>
                         <p>
-                          Inventory List
-                        </p>
-                      </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                      <a href="<?php echo base_url ?>admin/?page=orders" class="nav-link nav-orders">
-                        <i class="nav-icon fas fa-list"></i>
-                        <p>
-                          Order List
+                          Establishment List
                         </p>
                       </a>
                     </li>
                     <li class="nav-header">Maintenance</li>
                     <li class="nav-item dropdown">
-                      <a href="<?php echo base_url ?>admin/?page=maintenance/category" class="nav-link nav-maintenance/category">
-                        <i class="nav-icon fas fa-th-list"></i>
+                      <a href="<?php echo base_url ?>admin/?page=state" class="nav-link nav-state">
+                        <i class="nav-icon fas fa-map-marker-alt"></i>
                         <p>
-                          Category List
+                          State/Province List
+                        </p>
+                      </a>
+                    </li> 
+                    <li class="nav-item dropdown">
+                      <a href="<?php echo base_url ?>admin/?page=city" class="nav-link nav-city">
+                        <i class="nav-icon fas fa-map-marker"></i>
+                        <p>
+                          City List
                         </p>
                       </a>
                     </li>
                     <li class="nav-item dropdown">
-                      <a href="<?php echo base_url ?>admin/?page=maintenance/sub_category" class="nav-link nav-maintenance/sub_category">
-                        <i class="nav-icon fas fa-th-list"></i>
+                      <a href="<?php echo base_url ?>admin/?page=zone" class="nav-link nav-zone">
+                        <i class="nav-icon fas fa-layer-group"></i>
                         <p>
-                          Sub Category List
-                        </p>
-                      </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                      <a href="<?php echo base_url ?>admin/?page=system_info" class="nav-link nav-system_info">
-                        <i class="nav-icon fas fa-cogs"></i>
-                        <p>
-                          Settings
+                          Barangay/Zone List
                         </p>
                       </a>
                     </li>
@@ -104,11 +103,8 @@
     $(document).ready(function(){
       var page = '<?php echo isset($_GET['page']) ? $_GET['page'] : 'home' ?>';
       var s = '<?php echo isset($_GET['s']) ? $_GET['s'] : '' ?>';
-      page = page.split('/');
-      page = page[0];
       if(s!='')
         page = page+'_'+s;
-
       if($('.nav-link.nav-'+page).length > 0){
              $('.nav-link.nav-'+page).addClass('active')
         if($('.nav-link.nav-'+page).hasClass('tree-item') == true){
